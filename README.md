@@ -46,7 +46,7 @@ Create an User using form submit:
 # Version release: 
 ## v1.00
 1. Insert/create with form submit
-2. Dynamic table geration using Ajax call
-3. CRUD operation using Ajax
+2. Dynamic table genaration using Ajax call
+3. CRUD operations using Ajax
 4. Stylish UI using Bootstrap
 
