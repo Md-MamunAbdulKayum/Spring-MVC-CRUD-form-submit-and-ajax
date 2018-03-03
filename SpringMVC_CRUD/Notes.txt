@@ -1,0 +1,5 @@
+For running :
+> http://localhost:8080/SpringMVC_CRUD/dashboard.do
+
+
+> DB properties are written in  application.properties file
