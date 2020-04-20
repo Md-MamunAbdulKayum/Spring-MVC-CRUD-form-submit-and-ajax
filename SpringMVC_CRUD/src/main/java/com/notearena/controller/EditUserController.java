@@ -36,14 +36,10 @@ public class EditUserController {
             @ModelAttribute("userObject") UserObjectForm userObject) {
 	    System.out.println("Check edit customer ajax controller action");
             
+	        // adding the user id to the userObject as it is not the part of userObject from the UI (input field path)
             userObject.setId(userId);
-            userObject.setFirstName(firstName);
-            userObject.setLastName(lastName);
-            userObject.setAge(age);
-            userObject.setEmail(email);
-            userObject.setUserName(userName);
-            userObject.setPassword(password);
-            System.out.println(firstName+" ,"+lastName+" ,"+age+", "+email+", "+userName+", "+password);
+
+            System.out.println("Id "+userObject.getId()+", "+ firstName+" ,"+lastName+" ,"+age+", "+email+", "+userName+", "+password);
             try {
                 userService.updateUser(userObject);
                 return "success";
