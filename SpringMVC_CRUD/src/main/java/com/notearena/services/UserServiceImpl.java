@@ -18,7 +18,6 @@ public class UserServiceImpl implements UserService {
 	
 	@Transactional
 	public void addUser(UserObjectForm user) {
-		// TODO Auto-generated method stub
 		userDAO.addUser(user);
 	}
 
@@ -35,12 +34,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public UserObjectForm getUser(int userId) {
-		// TODO Auto-generated method stub
 		return userDAO.getUser(userId);
 	}
 
 	public UserObjectForm updateUser(UserObjectForm user) {
-		// TODO Auto-generated method stub
 		return userDAO.updateUser(user);
 	}
 
@@ -49,7 +46,7 @@ public class UserServiceImpl implements UserService {
 	}
 
     public boolean findUser(int userId) {
-               return userDAO.finduser(userId);
+               return userDAO.findUser(userId);
     }
 
 

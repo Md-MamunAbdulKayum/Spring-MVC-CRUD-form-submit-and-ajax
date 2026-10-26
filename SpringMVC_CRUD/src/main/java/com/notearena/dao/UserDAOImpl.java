@@ -16,8 +16,7 @@ public class UserDAOImpl implements UserDAO {
 	private SessionFactory sessionFactory;
 	
 	public void addUser(UserObjectForm employee) {
-		sessionFactory.getCurrentSession().saveOrUpdate(employee);
-
+		sessionFactory.getCurrentSession().save(employee);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -27,12 +26,11 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	public void deleteUser(Integer userId) {
-		UserObjectForm employee = (UserObjectForm) sessionFactory.getCurrentSession().load(
+		UserObjectForm employee = sessionFactory.getCurrentSession().get(
 				UserObjectForm.class, userId);
-		if (null != employee) {
-			this.sessionFactory.getCurrentSession().delete(employee);
+		if (employee != null) {
+			sessionFactory.getCurrentSession().delete(employee);
 		}
-		
 	}
 
 	
@@ -46,10 +44,8 @@ public class UserDAOImpl implements UserDAO {
 				UserObjectForm.class, userId);
 	}
 
-    public boolean finduser(int userId) {
-        UserObjectForm employee = (UserObjectForm) sessionFactory.getCurrentSession().load(
-				UserObjectForm.class, userId);
-                return null != employee;
+    public boolean findUser(int userId) {
+        return sessionFactory.getCurrentSession().get(UserObjectForm.class, userId) != null;
     }
 
         

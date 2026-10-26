@@ -28,20 +28,20 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
-  `FirstName` varchar(100) NOT NULL,
-  `LastName` varchar(100) NOT NULL,
-  `Age` int(11) NOT NULL,
-  `Email` varchar(100) NOT NULL,
-  `UserName` varchar(100) NOT NULL,
-  `Password` varchar(100) NOT NULL,
-  `Status` int(11) NOT NULL
+  `firstName` varchar(100) NOT NULL,
+  `lastName` varchar(100) NOT NULL,
+  `age` int(11) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `userName` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `FirstName`, `LastName`, `Age`, `Email`, `UserName`, `Password`, `Status`) VALUES
+INSERT INTO `user` (`id`, `firstName`, `lastName`, `age`, `email`, `userName`, `password`, `status`) VALUES
 (1, 'dsdss', 'ddssd', 1, 'dssd', 'sdsd', 'ssdsd', 1),
 (2, 'dada', 'adad', 11, 'adada', 'sasd', 'asdad', 1);
 
