@@ -37,7 +37,13 @@ public class AddUserController {
             @ModelAttribute("userObject") UserObjectForm userObject) {
 	    System.out.println("Check add customer ajax controller action");
             	    
-            System.out.println(firstName+" ,"+lastName+" ,"+age+", "+email+", "+userName+", "+password+", "+status);
+            userObject.setFirstName(firstName);
+            userObject.setLastName(lastName);
+            userObject.setAge(age);
+            userObject.setEmail(email);
+            userObject.setUserName(userName);
+            userObject.setPassword(password);
+            userObject.setStatus(status);
             try {
                 userService.addUser(userObject);
                 return "success";

@@ -17,5 +17,5 @@ public interface UserDAO {
 
 	public UserObjectForm getUser(int userId);
         
-        public boolean finduser(int userId);
+        public boolean findUser(int userId);
 }

@@ -10,6 +10,7 @@ var age = 0;
 var email = "";
 var userName = "";
 var password = "";
+var status = 0;
 
 var actioCreate = false;
 var actioEdit = false;
@@ -38,6 +39,7 @@ $(document).ready(function () {
             $('#age').val(0);
             $('#email').val("");
             $('#userName').val("");
+            $('#password').val("");
             $('#status').val(0);
             
             $("#dialogAddUser").dialog("open");
@@ -74,6 +76,19 @@ $(document).ready(function () {
 
 
     });
+
+    $("#tdataDis").on("click", "tr", function () {
+        $(".selected").removeClass("selected");
+        $(this).addClass("selected");
+        id = parseInt($(".i", this).text(), 10) || 0;
+        firstName = $(".f", this).text();
+        lastName = $(".l", this).text();
+        age = $(".a", this).text();
+        email = $(".e", this).text();
+        userName = $(".u", this).text();
+        status = $(".s", this).text();
+    });
+
     setUserPanel();
 });
 
@@ -106,20 +121,9 @@ function setUserPanel() {
                             $('<td class="s">').text(item.status)).appendTo('#tdataDis');
                 });
             });
-            $("tbody tr").click(function () {
-                $('.selected').removeClass('selected');
-                $(this).addClass("selected");
-                id = $('.i', this).html();
-                firstName = $('.f', this).html();
-                lastName = $('.l', this).html();
-                age = $('.a', this).html();
-                email = $('.e', this).html();
-                userName = $('.u', this).html();
-                status = $('.s', this).html();
-            });
         },
         error: function (e) {
-            alert("userContext");
+            alert("Failed to load users");
             console.log("ERROR: ", e);
 
         },
@@ -132,7 +136,7 @@ function deleteRow() {
     console.log("id: " + id);
     if (id!==0) { // some condition to check whether user selected an row or not
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: "./deleteUser.do",
             timeout: 100000,
             cache: false,
@@ -200,11 +204,13 @@ function createUser() {
             if (data === "success") {
                 $("#dialogAddUser").dialog("close");
                 setUserPanel();
+            } else {
+                alert("Failed to create user");
             }
 
         },
         error: function (e) {
-            alert("userContext");
+            alert("Failed to create user");
             console.log("ERROR: ", e);
 
         },
@@ -243,11 +249,13 @@ function updateUser() {
             if (data === "success") {
                 $("#dialogAddUser").dialog("close");
                 setUserPanel();
+            } else {
+                alert("Failed to update user");
             }
 
         },
         error: function (e) {
-            alert("userContext");
+            alert("Failed to update user");
             console.log("ERROR: ", e);
 
         },

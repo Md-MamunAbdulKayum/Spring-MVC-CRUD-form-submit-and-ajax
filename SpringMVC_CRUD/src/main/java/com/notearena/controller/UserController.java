@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -39,13 +41,16 @@ public class UserController {
 		return "addUser";
 	}
 	
-	@RequestMapping(value = "viewUser")
+	@RequestMapping(value = "viewUser", method = RequestMethod.POST)
 	public String addCustomerAction(@ModelAttribute("userObject") UserObjectForm userObject, Model model) {
-	    System.out.println("Check add customer action");
-            if (userObject.getUserName()!=null) {
+            if (userObject.getUserName() != null && !userObject.getUserName().trim().isEmpty()) {
                 userService.addUser(userObject);
-                userObject =null;
             }
+		return "redirect:viewUser.do";
+	}
+
+	@RequestMapping(value = "viewUser", method = RequestMethod.GET)
+	public String viewUserPage(@ModelAttribute("userObject") UserObjectForm userObject, Model model) {
 		return "viewUser";
 	}
 	@RequestMapping(value = "showUser")
@@ -64,28 +69,26 @@ public class UserController {
 	return "viewUser";
 	}
         
-        @RequestMapping(value = "viewUsers")
-        public @ResponseBody String viewCustomer() throws Exception {
-		System.out.println("Check view customer");
-	    
+        @RequestMapping(value = "viewUsers", produces = MediaType.APPLICATION_JSON_VALUE)
+        public @ResponseBody String viewCustomer() {
             List<UserObjectForm> users = userService.getAllUser();
-            System.out.println("Users: "+users.toString());
-        JSONObject jassonObject = new JSONObject();
-      //  System.out.println(userName + " ----------- " + jassonObject.toString());
-        JSONArray jassonArray = new JSONArray();
-        jassonArray.put(users);
-            System.out.println(jassonArray);
-        jassonObject.put("records", users);
-        
-        String dfsd = jassonArray.toString();
-        String ddd = dfsd.substring(dfsd.indexOf("[")+1, dfsd.lastIndexOf("]"));
-            System.out.println("ddd: "+ddd);
-		//model.addAttribute("userObject", userObject);
-	return ddd;
+            JSONArray jsonArray = new JSONArray();
+            for (UserObjectForm user : users) {
+                JSONObject obj = new JSONObject();
+                obj.put("id", user.getId());
+                obj.put("firstName", user.getFirstName());
+                obj.put("lastName", user.getLastName());
+                obj.put("age", user.getAge());
+                obj.put("email", user.getEmail());
+                obj.put("userName", user.getUserName());
+                obj.put("status", user.getStatus());
+                jsonArray.put(obj);
+            }
+            return jsonArray.toString();
 	}
         
-        @RequestMapping(value = "deleteUser")
-        public @ResponseBody String deleteCustomer(@RequestParam(value = "userId") int userId) throws Exception{
+        @RequestMapping(value = "deleteUser", method = RequestMethod.POST)
+        public @ResponseBody String deleteCustomer(@RequestParam(value = "userId") int userId) {
             if(userService.findUser(userId)) {
               System.out.println("Id: "+userId);
               userService.deleteUser(userId);
